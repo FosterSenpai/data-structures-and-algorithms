@@ -1,7 +1,0 @@
-﻿  cList.cpp
-  cNode.cpp
-  Generating Code...
-C:\Users\foste\source\repos\Linked List\Linked List\cList.cpp(183,1): error C4716: 'cList::NumNodes': must return a value
-C:\Users\foste\source\repos\Linked List\Linked List\cList.cpp(187,1): error C4716: 'cList::NodeExists': must return a value
-C:\Users\foste\source\repos\Linked List\Linked List\cList.cpp(179,1): error C4716: 'cList::FindNode': must return a value
-C:\Users\foste\source\repos\Linked List\Linked List\cList.cpp(175,1): error C4716: 'cList::GetNode': must return a value
