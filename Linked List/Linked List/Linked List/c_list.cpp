@@ -181,14 +181,7 @@ void cList::delete_tail()
 
 void cList::delete_body(int position)
 {
-	//  Check if the list is empty or the position is invalid, return if so.
-	//  If the head needs to be deleted, update the head and delete the node.
-	//  Traverse to the node before the position to be deleted.
-	//  If the position is out of range, return.
-	//  Store the node to be deleted.
-	//  Update the links to bypass the node.
-	//  Delete the stored node.
-
+	// If the list is empty or the position is out of range.
 	if (m_nodes_ <= 0 || m_head_ == nullptr)
 	{
 		std::cout << "Nothing to delete at selected position." << '\n';
@@ -290,10 +283,32 @@ bool cList::node_exists(int key) const
 void cList::print_list() const
 {
 	cNode* p_current = m_head_;    // Pointer to the current node, starting at the head.
+	int position = 0;   // Variable to hold the position of the current node.
+
+	// Decorate the output.
+	std::cout << "==================== List: ==================== " << '\n';
 
 	while (p_current != nullptr)   // Traverse the list.
 	{
-		std::cout << "Key: " << p_current->get_key() << " Value: " << p_current->get_value() << '\n';    // Print the key and value of the current node.
-		p_current = p_current->get_next();   // Move to the next node.
+		if (p_current == m_head_)    // If the current node is the head.
+		{
+			std::cout << "Position: Head" << " Key: " << p_current->get_key() << " Value: " << p_current->get_value() << '\n';
+			position++;
+			p_current = p_current->get_next();   // Move to the next node.
+		}
+		else if (p_current->get_next() == nullptr)    // If the current node is the tail.
+		{
+			std::cout << "Position: Tail" << " Key: " << p_current->get_key() << " Value: " << p_current->get_value() << '\n';
+			p_current = p_current->get_next();   // Move to the next node.
+			position++;    // Increment the position.
+		}
+		else
+		{
+			std::cout << "Position:    " << position << " Key: " << p_current->get_key() << " Value: " << p_current->get_value() << '\n';
+			p_current = p_current->get_next();   // Move to the next node.
+			position++;    // Increment the position.
+		}
+
+
 	}
 }
