@@ -92,13 +92,14 @@ void cList::insert_tail(const int key, const float value)
 	m_nodes_++;
 }
 
-void cList::insert_body(const int position, const int key, const float value)
+void cList::insert_body(int position, const int key, const float value)
 {
+	position -= 1;    // Decrement the position to match the index of the list.
 	if (position < 0 || position > m_nodes_)   // Range check.
 	{
 
 		// Todo: Throw exception.
-		std::cout << "Position selected out of range." << '\n';
+		std::cout << "\n** Position selected out of range **" << '\n';
 		return;
 
 	}
@@ -152,7 +153,7 @@ void cList::delete_tail()
 	{
 
 		// Todo: Throw exception.
-		std::cout << "List is empty." << '\n';
+		std::cout << "\n** List is empty **" << '\n';
 		return;
 
 	}
@@ -181,10 +182,11 @@ void cList::delete_tail()
 
 void cList::delete_body(int position)
 {
+
 	// If the list is empty or the position is out of range.
 	if (m_nodes_ <= 0 || m_head_ == nullptr)
 	{
-		std::cout << "Nothing to delete at selected position." << '\n';
+		std::cout << "\n** Nothing to delete at selected position **" << '\n';
 		return;
 	}
 
@@ -221,7 +223,7 @@ cNode* cList::get_node(int position) const
 {
 	if (position < 0 || position >= m_nodes_)    // Range check.
 	{
-		std::cout << "Position selected out of range." << '\n';
+		std::cout << "/n** Position selected out of range **" << '\n';
 		return nullptr;
 	}
 
@@ -283,32 +285,33 @@ bool cList::node_exists(int key) const
 void cList::print_list() const
 {
 	cNode* p_current = m_head_;    // Pointer to the current node, starting at the head.
-	int position = 0;   // Variable to hold the position of the current node.
+	int position = 1;   // Variable to hold the position of the current node.
 
 	// Decorate the output.
-	std::cout << "==================== List: ==================== " << '\n';
+	std::cout << "\n==================== List: ==================== " << '\n';
 
 	while (p_current != nullptr)   // Traverse the list.
 	{
 		if (p_current == m_head_)    // If the current node is the head.
 		{
-			std::cout << "Position: Head" << " Key: " << p_current->get_key() << " Value: " << p_current->get_value() << '\n';
+			std::cout << "Position: Head" << "| Key: " << p_current->get_key() << "| Value: " << p_current->get_value() << '\n';
 			position++;
 			p_current = p_current->get_next();   // Move to the next node.
 		}
 		else if (p_current->get_next() == nullptr)    // If the current node is the tail.
 		{
-			std::cout << "Position: Tail" << " Key: " << p_current->get_key() << " Value: " << p_current->get_value() << '\n';
+			std::cout << "Position: Tail" << "| Key: " << p_current->get_key() << "| Value: " << p_current->get_value() << '\n';
 			p_current = p_current->get_next();   // Move to the next node.
 			position++;    // Increment the position.
 		}
 		else
 		{
-			std::cout << "Position:    " << position << " Key: " << p_current->get_key() << " Value: " << p_current->get_value() << '\n';
+			std::cout << "Position:    " << position << "| Key: " << p_current->get_key() << "| Value: " << p_current->get_value() << '\n';
 			p_current = p_current->get_next();   // Move to the next node.
 			position++;    // Increment the position.
 		}
-
-
 	}
+
+	// Decorate the output.
+	std::cout << "===============================================" << '\n';
 }

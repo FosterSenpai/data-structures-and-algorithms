@@ -54,7 +54,7 @@ public:
 	/// <param name="key"> The key of the new node as an Integer </param>
 	/// <param name="value"> The value of the new node as a Float </param>
 	/// <remarks> Remember head/start of list is position 0. </remarks>
-	void insert_body(const int position, const int key, const float value);
+	void insert_body(int position, const int key, const float value);
 
 
 	// ------ Delete Methods ------
