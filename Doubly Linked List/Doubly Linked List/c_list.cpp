@@ -6,7 +6,6 @@
 c_list::c_list()
 {
 	head_node_ = nullptr;
-	tail_node_ = nullptr;
 	current_node_ = nullptr;
 	size_ = 0;
 }
@@ -41,39 +40,52 @@ void c_list::insert_head(const int key, const float data)
 	if (head_node_ != nullptr) // If the list is not empty
 	{
 		head_node_->set_prev(new_node); // Set the previous pointer of the current head to the new node
+		head_node_ = new_node;          // Set the head to the new node
 	}
-	else // If the list is empty, set 
+	else // If the list is empty
 	{
 		head_node_ = new_node;
-		tail_node_ = new_node;
-
 	}
+
 	size_++;
 }
 
+/**
+ * @brief Insert a node at the tail of the list
+ * @param key Key of the node
+ * @param data Data of the node
+ */
 void c_list::insert_tail(const int key, const float data)
 {
-	c_node* new_node = new c_node(key, data, tail_node_, nullptr); // Create node, using constructor with key, data and pointers
+	c_node* new_node = new c_node(key, data);
 
-	if (head_node_ == nullptr) // If the list is empty, set the head and tail to the new node
+	if (head_node_ == nullptr)    // If the list is empty
 	{
 		head_node_ = new_node;
-		tail_node_ = new_node;
-		size_++;
-		return;
 	}
-	else
+	else                          // If the list is not empty
 	{
-		
+		current_node_ = head_node_;
+		while (current_node_->get_next() != nullptr) // Traverse from the head to the tail.
+		{
+			current_node_ = current_node_->get_next();
+		}
+
+		current_node_->set_next(new_node); // Set the next pointer of old tail to the new node
+		new_node->set_prev(current_node_); // Set the previous pointer of the new node to the old tail
+		current_node_ = nullptr;
 	}
-
-
 	size_++;
-
 }
 
-void c_list::insert_body(const int key, const float data)
+void c_list::insert_body(const int key, const float data, int position)
 {
+	c_node* new_node = new c_node(key, data);
+
+	if (position ==1) // TODO - may be an issue here, test out inserting at pos 1.
+	{
+		insert_head(key, data);
+	}
 }
 
 
@@ -159,6 +171,51 @@ void c_list::traverse_backward(c_node* tail)
 
 void c_list::print_list() const
 {
+	c_node* current_node = head_node_; // Start at the head
+	int position = 1; // Head is position 1, list is 1-indexed
+	std::cout << "=============== PRINT LIST ===============" << '\n';
+	while (current_node != nullptr) // While there are nodes to traverse
+	{
+
+		// Print previous node if it exists
+		if(current_node->get_prev() == nullptr)
+		{
+			std::cout << "NULL <-\n\n";
+		}
+
+		// Print positions
+		if (position == 1)
+		{
+			std::cout << "[POS: HEAD";
+		}
+		else if (current_node->get_next() == nullptr)
+		{
+			std::cout << "[POS: TAIL";
+		}
+		else
+		{
+			std::cout << "[POS: " << position;
+		}
+		position++; // Increment position
+
+		// Print key and data
+		std::cout << "| KEY: " << current_node->get_key() << "| VAL: " << current_node->get_data() << "]";
+
+		// Print next node if it exists
+		if(current_node->get_next() == nullptr)
+		{
+			std::cout << "\n\n-> NULL\n";
+		}
+		else
+		{
+			std::cout << "\n";
+		}
+		current_node = current_node->get_next(); // Move to the next node
+	}
+
+
+	std::cout << "================ END LIST ================" << '\n';
+	std::cout << '\n';
 }
 
-        
+

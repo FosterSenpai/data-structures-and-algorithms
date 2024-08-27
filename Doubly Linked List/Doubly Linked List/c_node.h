@@ -30,10 +30,10 @@ public:
 
 	// ================== Constructors and Destructors ==================
 
-	c_node();
 	c_node(int key);                                            // Constructor with key
 	c_node(int key, float data);                                // Constructor with data and key
-	c_node(int key, float data, c_node* prev, c_node* next);    // Constructor with data, key and pointers
+	c_node(int key, float data, c_node* next); 				    // Constructor with data, key and next pointer
+	c_node(int key, float data, c_node* prev, c_node* next);    // Constructor with data, key and both pointers
 
 	~c_node();
 

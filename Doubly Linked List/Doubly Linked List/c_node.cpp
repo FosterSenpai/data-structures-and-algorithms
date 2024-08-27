@@ -18,6 +18,14 @@ c_node::c_node(int key, float data)
 	next_ = nullptr;
 }
 
+c_node::c_node(int key, float data, c_node* next)
+{
+	key_ = key;
+	data_ = data;
+	prev_ = nullptr;
+	next_ = next;
+}
+
 c_node::c_node(int key, float data, c_node* prev, c_node* next)
 {
 	key_ = key;

@@ -21,7 +21,96 @@ void clear_screen()
     SetConsoleCursorPosition(h_console, homeCoords);
 }
 
+void user_insert(c_list* list);
+
 int main()
 {
-	return 0;
+    bool running = true;
+	bool valid = false;
+    char choice = ' ';
+	c_list list;
+
+	user_insert(&list);
+	list.print_list();
+
+
+	while (running)
+	{
+		std::cout << "Do you want to continue? [Y]es, [N]o: ";
+		std::cin >> choice;
+		if(choice == 'N' || choice == 'n')
+		{
+			running = false;
+		}
+		else if (choice == 'Y' || choice == 'y')
+		{
+			clear_screen();
+		}
+		else
+		{
+			std::cout << "Invalid choice. Please enter Y or N\n";
+			std::cin >> choice;
+		}
+
+		user_insert(&list);
+		clear_screen();
+		list.print_list();
+
+	}
+}
+
+void user_insert(c_list* list)
+{
+	bool valid = false;
+	char choice = ' ';
+	int key = 0;
+	float data = 0.0f;
+	int position = 0;
+
+	list->print_list();
+
+	std::cout << "\nWhere do you want to insert node, [H]ead [B]ody [T]ail: ";
+    std::cin >> choice;
+
+	while (!valid)
+	{
+		std::cout << "\n*** INPUT ***\n";
+		if (choice == 'H' || choice == 'h')
+		{
+			std::cout << "Enter key: ";
+			std::cin >> key;
+			std::cout << "Enter data: ";
+			std::cin >> data;
+			list->insert_head(key, data);
+			valid = true;
+		}
+		else if (choice == 'B' || choice == 'b')
+		{
+			std::cout << "Enter key: ";
+			std::cin >> key;
+			std::cout << "Enter data: ";
+			std::cin >> data;
+			std::cout << "Enter position: ";
+			std::cin >> position;
+			list->insert_body(key, data, position);
+			valid = true;
+		}
+		else if (choice == 'T' || choice == 't')
+		{
+			std::cout << "Enter key: ";
+			std::cin >> key;
+			std::cout << "Enter data: ";
+			std::cin >> data;
+			list->insert_tail(key, data);
+			valid = true;
+		}
+		else
+		{
+			std::cout << "Invalid choice. Please enter H, B, or T: ";
+			std::cin >> choice;
+		}
+		std::cout << "*** INPUT ***\n\n";
+
+	}
+
 }

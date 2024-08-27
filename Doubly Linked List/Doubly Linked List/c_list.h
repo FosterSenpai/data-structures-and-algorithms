@@ -22,7 +22,6 @@ protected:
 	// ========================== Data Members ==========================
 
 	c_node* head_node_;       // Pointer to the head node
-	c_node* tail_node_;       // Pointer to the tail node
 	c_node* current_node_;    // Pointer to the current node
 	int size_;				  // Number of nodes in the list
 
@@ -38,7 +37,7 @@ public:
 
 	void insert_head(const int key, const float data);
 	void insert_tail(const int key, const float data);
-	void insert_body(const int key, const float data);
+	void insert_body(const int key, const float data, int position);
 
 
 	//                      ***** Delete Functions *****
@@ -56,10 +55,10 @@ public:
 
 	//                      ***** Utility Functions *****
 
-int c_list::list_size(c_node* head) const;
-	bool node_exists(int key) const;
-	void traverse_forward(c_node* head);
-	void traverse_backward(c_node* tail);
-	void print_list() const;
+int list_size(c_node* head) const;
+bool node_exists(int key) const;
+void traverse_forward(c_node* head);
+void traverse_backward(c_node* tail);
+void print_list() const;
 };
 
