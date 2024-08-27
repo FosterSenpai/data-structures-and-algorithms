@@ -21,10 +21,10 @@ protected:
 
 	// ========================== Data Members ==========================
 
-	float data_;      // *** May need to change the data type later for the project ***
-	int key_;
-	c_node* prev_;
-	c_node* next_;
+	float data_;      // Data type of the node            *** May need to change the data type later for the project ***
+	int key_;         // Key of the node                  *** Will need to make sure the key is unique ***
+	c_node* prev_;    // Pointer to the previous node
+	c_node* next_;    // Pointer to the next node
 
 public:
 
