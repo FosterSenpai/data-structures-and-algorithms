@@ -29,6 +29,7 @@ public:
 	};
 
 	// *** Constructors ***
+
 	/**
 	 * @brief default constructor
 	 */
@@ -94,9 +95,12 @@ public:
 	void set_quantity(int quantity) { m_quantity_ = quantity; } // Mutator for quantity
 
 private:
+
 	// *** Member Variables ***
+
 	std::string m_name_; // Name of the item
 	item_type m_type_;   // Type of the item
 	float m_price_;      // Price of the item
 	int m_quantity_;     // Quantity of the item
+
 };

@@ -3,7 +3,7 @@
 #include "c_item.h"
 
 void test_item();
-void print_item(c_item item);
+void print_item(const c_item& item);
 std::string get_type_string(c_item::item_type type);
 
 int main()
@@ -35,7 +35,7 @@ void test_item()
 }
 
 
-void print_item(c_item item)
+void print_item(const c_item& item)
 {
 	std::cout << "Item: " << item.get_name() << std::endl;
 	std::cout << "Type: " <<  get_type_string(item.get_type()) << std::endl;
