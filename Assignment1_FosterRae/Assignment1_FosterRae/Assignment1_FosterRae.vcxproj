@@ -27,8 +27,8 @@
   <ItemGroup>
     <ClCompile Include="c_doubly_linked_list.cpp" />
     <ClCompile Include="c_inventory_manager.cpp" />
-    <ClCompile Include="c_item.cpp" />
     <ClCompile Include="c_node.cpp" />
+    <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
