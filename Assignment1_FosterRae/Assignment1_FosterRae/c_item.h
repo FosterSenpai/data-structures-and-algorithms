@@ -21,11 +21,11 @@ public:
 	// Enum for item types
 	enum class item_type 
 	{
-		WEAPON,
-		ARMOR,
-		POTION,
-		CONSUMABLE,
-		UTILITY,
+	    ARMOR,
+	    CONSUMABLE,
+	    POTION,
+	    UTILITY,
+	    WEAPON,
 	};
 
 	// *** Constructors ***
@@ -109,27 +109,52 @@ public:
 	bool operator>(const c_item& other) const;
 
 	// *** Comparison Functions ***
-	bool compare_by_name(const c_item& other) const { return m_name_ < other.m_name_; } 			// Compare by name
-	bool compare_by_type(const c_item& other) const { return m_type_ < other.m_type_; } 			// Compare by type
-	bool compare_by_price(const c_item& other) const { return m_price_ < other.m_price_; } 			// Compare by price
-	bool compare_by_quantity(const c_item& other) const { return m_quantity_ < other.m_quantity_; } // Compare by quantity
+	/**
+	 * @brief Compare items by name
+	 * @param other - the item to compare to
+	 * @return true if the item's name is less than the other item's name alphabetically
+	 */
+	bool compare_by_name(const c_item& other) const { return m_name_ < other.m_name_; }
+	/**
+	 * @brief Compare items by type
+	 * @param other - the item to compare to
+	 * @return true if the item's type is less than the other item's type alphabetically after converting to a string
+	 */
+	bool compare_by_type(const c_item& other) const { return m_type_ < other.m_type_; }
+	/**
+	 * @brief Compare items by price
+	 * @param other - the item to compare to
+	 * @return true if the item's price is less than the other item's price
+	 */
+	bool compare_by_price(const c_item& other) const { return m_price_ < other.m_price_; }
+	/**
+	 * @brief Compare items by quantity
+	 * @param other - the item to compare to
+	 * @return true if the item's quantity is less than the other item's quantity
+	 */
+	bool compare_by_quantity(const c_item& other) const { return m_quantity_ < other.m_quantity_; }
 
+	/**
+	 * @brief Convert an item type to a string
+	 * @param type - the item type to convert
+	 * @return the item type as a string
+	 */
 	inline std::string item_type_to_string(item_type type) const
 	{
 		switch (type)
 		{
-		case item_type::WEAPON:
-			return "WEAPON";
-		case item_type::ARMOR:
-			return "ARMOR";
-		case item_type::POTION:
-			return "POTION";
-		case item_type::CONSUMABLE:
-			return "CONSUMABLE";
-		case item_type::UTILITY:
-			return "UTILITY";
-		default:
-			return "INVALID";
+			case item_type::ARMOR:
+				return "ARMOR";
+			case item_type::CONSUMABLE:
+				return "CONSUMABLE";
+			case item_type::POTION:
+				return "POTION";
+			case item_type::UTILITY:
+				return "UTILITY";
+			case item_type::WEAPON:
+				return "WEAPON";
+			default:
+				return "UNKNOWN";
 		}
 	}
 
@@ -148,13 +173,20 @@ inline bool c_item::operator<(const c_item& other) const
 {
     constexpr float epsilon = 0.0001f; // Epsilon value for float comparison
 
-    if (m_name_ != other.m_name_) {
+    if(m_name_ != other.m_name_) 
+	{
         return m_name_ < other.m_name_; 												// Compare strings alphabetically
-    } else if (item_type_to_string(m_type_) != item_type_to_string(other.m_type_)) {
-        return item_type_to_string(m_type_) < item_type_to_string(other.m_type_); 		// Compare enum strings alphabetically
-    } else if (m_price_ - other.m_price_ < -epsilon) {
-        return m_price_ < other.m_price_; 												// Compare floats numerically
-    } else {
+    }
+	else if(m_type_ != other.m_type_) 
+	{
+        return m_type_ < other.m_type_; 												// Compare enums numerically
+    }
+	else if(m_price_ - other.m_price_ < -epsilon) 
+	{
+        return m_price_ < other.m_price_; 												// Compare floats numerically, with epsilon
+    }
+	else 
+	{
         return m_quantity_ < other.m_quantity_; 										// Compare integers numerically
     }
 }
@@ -163,13 +195,20 @@ inline bool c_item::operator>(const c_item& other) const
 {
     constexpr float epsilon = 0.0001f; // Epsilon value for float comparison
 
-    if (m_name_ != other.m_name_) {
+    if (m_name_ != other.m_name_)
+	{
         return m_name_ > other.m_name_; 												// Compare strings alphabetically
-    } else if (item_type_to_string(m_type_) != item_type_to_string(other.m_type_)) {
-        return item_type_to_string(m_type_) > item_type_to_string(other.m_type_); 		// Compare enum strings alphabetically
-    } else if (m_price_ - other.m_price_ > epsilon) {
-        return m_price_ > other.m_price_; 												// Compare floats numerically
-    } else {
+    }
+	else if (m_type_ != other.m_type_) 
+	{
+		return m_type_ > other.m_type_; 												// Compare enums numerically
+	}
+	else if (m_price_ - other.m_price_ > epsilon) 
+	{
+        return m_price_ > other.m_price_; 												// Compare floats numerically, with epsilon
+    }
+	else 
+	{
         return m_quantity_ > other.m_quantity_; 										// Compare integers numerically
     }
 }

@@ -181,7 +181,7 @@ void c_inventory_manager::add_item()
 	std::getline(std::cin, name);
 
 	int type_int;
-	std::cout << "Enter the type of the item (0 = WEAPON, 1 = ARMOR, 2 = POTION, 3 = CONSUMABLE, 4 = UTILITY): ";
+	std::cout << "Enter the type of the item (0 = ARMOR, 1 = CONSUMABLE, 2 = POTION, 3 = UTILITY, 4 = WEAPON): ";
 	std::cin >> type_int;
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 	c_item::item_type type = static_cast<c_item::item_type>(type_int);
@@ -287,7 +287,7 @@ void c_inventory_manager::edit_item()
 
 	// Edit the type of the item
 	int type_int;
-	std::cout << "Enter the new type of the item (0 = WEAPON, 1 = ARMOR, 2 = POTION, 3 = CONSUMABLE, 4 = UTILITY): ";
+	std::cout << "Enter the new type of the item (0 = ARMOR, 1 = CONSUMABLE, 2 = POTION, 3 = UTILITY, 4 = WEAPON): ";
 	std::cin >> type_int;
 	c_item::item_type type = static_cast<c_item::item_type>(type_int);
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');

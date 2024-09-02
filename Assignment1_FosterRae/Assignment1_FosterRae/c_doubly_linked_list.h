@@ -153,33 +153,38 @@ public:
 	 */
 	void delete_body(int position);
 
-	// ** Sorting **
 	/**
-	 * @brief Sort the list using Quicksort
-	 *
-	 * @note Uses the last node as the pivot
+	 * @brief Sort the list in ascending order using the quicksort algorithm
+	 * @param low - pointer to the node at the start of the sublist
+	 * @param high - pointer to the node at the end of the sublist
+	 * @param sort_choice - integer representing the column to sort by (0 = name, 1 = type, 2 = price, 3 = quantity)
 	 */
 	void quick_sort_ascending(c_node* low, c_node* high, int sort_choice);
 	/**
-	 * @brief Sort the list in descending order using Quicksort
-	 *
-	 * @note Uses the last node as the pivot
+	 * @brief Sort the list in descending order using the quicksort algorithm
+	 * @param low - pointer to the node at the start of the sublist
+	 * @param high - pointer to the node at the end of the sublist
+	 * @param sort_choice - integer representing the column to sort by (0 = name, 1 = type, 2 = price, 3 = quantity)
 	 */
 	void quick_sort_descending(c_node* low, c_node* high, int sort_choice);
 	/**
-	 * @brief Partition the list for Quicksort
-	 * @param low - a c_node pointer to the lower bound of the partition
-	 * @param high - a c_node pointer to the upper bound of the partition
-	 * @param sort_choice - the column to sort by (0 = name, 1 = type, 2 = price, 3 = quantity)
+	 * @brief Partition the list for Quicksort in ascending order
+	 * @param low - pointer to the node at the start of the sublist
+	 * @param high - pointer to the node at the end of the sublist
+	 * @param sort_choice - integer representing the column to sort by (0 = name, 1 = type, 2 = price, 3 = quantity)
 	 * @return the partition index
+	 *
+	 * @note pass sort_choice from quick_sort_ascending
 	 */
 	c_node* partition_ascending(c_node* low, c_node* high, int sort_choice);
 	/**
 	 * @brief Partition the list for Quicksort in descending order
-	 * @param low - a c_node pointer to the lower bound of the partition
-	 * @param high - a c_node pointer to the upper bound of the partition
-	 * @param sort_choice - the column to sort by (0 = name, 1 = type, 2 = price, 3 = quantity)
+	 * @param low - pointer to the node at the start of the sublist
+	 * @param high - pointer to the node at the end of the sublist
+	 * @param sort_choice - integer representing the column to sort by (0 = name, 1 = type, 2 = price, 3 = quantity)
 	 * @return the partition index
+	 *
+	 * @note pass sort_choice from quick_sort_descending
 	 */
 	c_node* partition_descending(c_node* low, c_node* high, int sort_choice);
 
