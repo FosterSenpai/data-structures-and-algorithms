@@ -14,7 +14,7 @@ void c_utility::print_array(int* arr, int n)
 	{
 		std::cout << arr[i] << " "; // Print the current element
 	}
-	std::cout << '\n';              // Print a newline
+	std::cout << std::endl;              // Print a newline and flush the buffer
 }
 
 void c_utility::swap(int* a, int* b)

@@ -41,12 +41,12 @@ void c_sort::bubble_sort(int* arr, int n)
     // The larger element goes to the right
     // Repeat the process until the array is sorted
 
-    for (int i = 0; i < n - 1; i++) // Iterate through the array
+    for (int i = 0; i < n - 1; i++) // Iterate through each element in the array
 	{
         bool swapped = false; // Variable to store if a swap has occurred
-        for (int j = 0; j < n - i - 1; j++) // Iterate through the array
+        for (int j = 0; j < n - i - 1; j++) // For each element in the array, iterate through the array comparing each element with the next element
         {
-	        if (arr[j] > arr[j + 1]) // If the current element is greater than the next element
+	        if (arr[j] > arr[j + 1]) // If the current element(arr[j]) is greater than the next element(arr[j + 1])
 			{
 				c_utility::swap(&arr[j], &arr[j + 1]); // Swap the elements
 				swapped = true; // Set swapped to true

@@ -4,6 +4,9 @@
 
 int main()
 {
+
+	// Seed the random number generator
+	srand(static_cast<unsigned int>(time(nullptr)));
 	// ** Bubble Sort **
 	std::cout << "************************** Bubble Sort **************************" << '\n';
 	int array1[ARRAY_SIZE];                          // Create an array of size ARRAY_SIZE
