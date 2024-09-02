@@ -5,19 +5,20 @@ This repository contains all of my projects related to Algorithms & Data Structu
 ## Contents
 
 - **Class Projects**
-### Project 1: Implementing a Singly Linked List
-This project involves creating a singly linked list data structure from scratch. 
-The singly linked list will support basic operations such as insertion, deletion, and traversal. 
-The goal of this project is to understand the fundamentals of linked lists and how they can be used to manage collections of data.
+### Project 1: Inventory Management System
+This project is a simple console-based inventory management system that allows users to add, remove, update, and sort items in an inventory. 
+The inventory data can be loaded from and saved to a text file.
 
-### Project 2: Implementing a Doubly Linked List
-This project focuses on implementing a doubly linked list data structure. 
-Unlike the singly linked list, each node in a doubly linked list contains references to both the next and previous nodes. 
-This allows for more efficient bidirectional traversal and manipulation of the list. 
-The project will cover operations such as insertion, deletion, and traversal in both directions.
+## Features
+
+- Add an item to the inventory
+- Remove an item from the inventory
+- Edit an item in the inventory
+- Display the inventory
+- Sort the inventory by name, type, price, or quantity in ascending or descending order
+- Load inventory data from a file
+- Save inventory data to a file
   
-- **Personal Projects**
-  - None rn.
 
 ## Setup and Running Projects
 
