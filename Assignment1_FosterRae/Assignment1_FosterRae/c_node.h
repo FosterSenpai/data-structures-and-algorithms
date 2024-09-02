@@ -17,11 +17,11 @@ class c_node
 {
 public:
 	// *** Constructors & Destructor ***
-	\
+
 	c_node(int key, const c_item& item);                                // Constructor with data and key
 	c_node(int key, const c_item& item, c_node* next, c_node* prev);    // Constructor with data, key, next, and previous pointers
 
-	~c_node(); 											         // Destructor
+	~c_node(); 											                // Destructor
 
 	// *** Accessors & Mutators ***
 
