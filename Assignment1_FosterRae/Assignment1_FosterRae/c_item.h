@@ -43,7 +43,7 @@ public:
 	 *
 	 *  @note This constructor uses std::move() to avoid copying the string, which is more efficient.
 	 */
-	c_item(std::string name, item_type type, float price, int quantity)
+	c_item(std::string name, const item_type type, const float price, const int quantity)
 		: m_name_(std::move(name)), m_type_(type), m_price_(price), m_quantity_(quantity) {} // Initializer list for constructor (more efficient than writing assignments in the constructor body)
 
 	// ** Accessors & Mutators **
@@ -70,7 +70,7 @@ public:
 	 *
 	 *  @note Can be WEAPON, ARMOR, POTION, CONSUMABLE, or UTILITY
 	 */
-	void set_type(item_type type) { m_type_ = type; }     // Mutator for type
+	void set_type(const item_type type) { m_type_ = type; }     // Mutator for type
 
 	/**
 	 * @brief Accessor for price
@@ -81,7 +81,7 @@ public:
 	 * @brief Mutator for price
 	 * @param price - float to set as the price of the item
 	 */
-	void set_price(float price) { m_price_ = price; }     // Mutator for price
+	void set_price(const float price) { m_price_ = price; }     // Mutator for price
 
 	/**
 	 * @brief Accessor for quantity
@@ -92,7 +92,7 @@ public:
 	 * @brief Mutator for quantity
 	 * @param quantity - int to set as the quantity of the item
 	 */
-	void set_quantity(int quantity) { m_quantity_ = quantity; } // Mutator for quantity
+	void set_quantity(const int quantity) { m_quantity_ = quantity; } // Mutator for quantity
 
 private:
 

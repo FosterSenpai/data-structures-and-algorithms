@@ -1,9 +1,9 @@
 ﻿#include "c_node.h"
 
 // *** Constructors & Destructor ***
-c_node::c_node(int key, const c_item& item) : m_item_(item), m_key_(key), m_next_(nullptr), m_prev_(nullptr){}
+c_node::c_node(const int key, const c_item& item) : m_item_(item), m_key_(key), m_next_(nullptr), m_prev_(nullptr){}
 
-c_node::c_node(int key, const c_item& item, c_node* next, c_node* prev) : m_item_(item), m_key_(key), m_next_(next), m_prev_(prev){}
+c_node::c_node(const int key, const c_item& item, c_node* next, c_node* prev) : m_item_(item), m_key_(key), m_next_(next), m_prev_(prev){}
 
 c_node::~c_node() = default;
 
@@ -18,7 +18,7 @@ c_item c_node::get_item() const
 }
 
 
-void c_node::set_key(int key)
+void c_node::set_key(const int key)
 {
 	m_key_ = key;
 }

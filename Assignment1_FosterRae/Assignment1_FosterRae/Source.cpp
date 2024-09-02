@@ -1,38 +1,39 @@
 #include <iostream>
 
 #include "c_item.h"
+#include  "c_doubly_linked_list.h"
 
-void test_item();
 void print_item(const c_item& item);
 std::string get_type_string(c_item::item_type type);
 
 int main()
 {
-	test_item();
+	std::cout << "Creating a new item..." << std::endl;
+	std::string name;
+	std::cout << "Enter the name of the item: ";
+	std::getline(std::cin, name);
+	std::cout << "Enter the type of the item (0 = WEAPON, 1 = ARMOR, 2 = POTION, 3 = CONSUMABLE, 4 = UTILITY): ";
+	int type_int;
+	std::cin >> type_int;
+	c_item::item_type type = static_cast<c_item::item_type>(type_int);
+	std::cout << "Enter the price of the item: ";
+	float price;
+	std::cin >> price;
+	std::cout << "Enter the quantity of the item: ";
+	int quantity;
+	std::cin >> quantity;
+
+	// Create the item
+	c_item item(name, type, price, quantity);
+
+	c_doubly_linked_list inventory;
+
+	// Insert the item at the head of the list
+	inventory.insert_head(0, item);
+
 	return 0;
 }
 
-void test_item()
-{
-	std::cout << "Testing c_item class" << std::endl;
-	std::cout << "first item variation:" << std::endl;
-	c_item item("Sword", c_item::item_type::WEAPON, 10.60f, 1);
-	print_item(item);
-
-	std::cout << "\n\nsecond item variation:" << std::endl;
-	item.set_name("Shield");
-	item.set_type(c_item::item_type::ARMOR);
-	item.set_price(5.20f);
-	item.set_quantity(2);
-	print_item(item);
-
-	std::cout << "\n\nthird item variation:" << std::endl;
-	item.set_name("Potion");
-	item.set_type(c_item::item_type::POTION);
-	item.set_price(2.24f);
-	item.set_quantity(3);
-	print_item(item);
-}
 
 
 void print_item(const c_item& item)
@@ -43,7 +44,7 @@ void print_item(const c_item& item)
 	std::cout << "Quantity: " << item.get_quantity() << std::endl;
 }
 
-std::string get_type_string(c_item::item_type type)
+std::string get_type_string(const c_item::item_type type)
 {
 	switch (type)
 	{
