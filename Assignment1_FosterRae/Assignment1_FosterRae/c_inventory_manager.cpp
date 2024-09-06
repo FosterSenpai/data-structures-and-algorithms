@@ -23,7 +23,7 @@ void c_inventory_manager::main_menu()
 		std::cout << "7. Save Inventory to File(NOT WORKING)\n";
 		std::cout << "8. Populate With Test Data\n";
 		std::cout << "9. Exit\n";
-		std::cout << "Enter your choice: ";
+		std::cout << "\nEnter your choice: ";
 
 		// Input validation
 		while (!(std::cin >> choice) || choice < 1 || choice > 9)
@@ -189,6 +189,13 @@ void c_inventory_manager::sort_inventory()
 		}
 		break;
 	}
+
+	// Display the sorted inventory
+	system("cls");
+	std::cout << "Inventory sorted.\n";
+	display_inventory();
+	std::cout << "\nPress Enter to continue...";
+	std::cin.get();
 }
 
 void c_inventory_manager::add_item()
@@ -294,6 +301,14 @@ void c_inventory_manager::delete_item()
 	{
 		inventory_.delete_body(position);
 	}
+
+	// Display the updated inventory
+	system("cls");
+	std::cout << "Item deleted.\n";
+	display_inventory();
+	std::cout << "\nPress Enter to continue...";
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+	std::cin.get();
 }
 
 void c_inventory_manager::edit_item()
