@@ -21,11 +21,12 @@ void c_inventory_manager::main_menu()
 		std::cout << "5. Edit Item\n";
 		std::cout << "6. Load Inventory from File (NOT WORKING)\n";
 		std::cout << "7. Save Inventory to File(NOT WORKING)\n";
-		std::cout << "8. Exit\n\n";
+		std::cout << "8. Populate With Test Data\n";
+		std::cout << "9. Exit\n";
 		std::cout << "Enter your choice: ";
 
 		// Input validation
-        while (!(std::cin >> choice) || choice < 1 || choice > 8)
+        while (!(std::cin >> choice) || choice < 1 || choice > 9)
         {
             std::cin.clear(); // clear the error flag
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // discard invalid input
@@ -65,9 +66,17 @@ void c_inventory_manager::main_menu()
 			std::cout << "Save Inventory to File function is yet to be implemented.\n";
 			break;
 		case 8:
+			populate();
+			system("cls");
+			std::cout << "Inventory populated with test data.\n";
+			// Wait for user input before returning to the main menu
+			std::cout << "\nPress Enter to continue...";
+		    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			break;
+		case 9:
 			break;
 		}
-	} while (choice != 8);
+	} while (choice != 9);
 }
 
 // ** Private Methods **
@@ -260,14 +269,13 @@ void c_inventory_manager::delete_item()
 	int position;
 	std::cout << "\nEnter the position of the item to delete: ";
 	std::cin >> position;
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 	// Confirm deletion
 	char choice;
 	std::cout << "\nAre you sure you want to delete the item at position " << position << "? (y/n): ";
 	std::cin >> choice;
-	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 	if (choice != 'y' && choice != 'Y')
+
 	{
 		return;
 	}
@@ -276,7 +284,7 @@ void c_inventory_manager::delete_item()
 	{
 		inventory_.delete_head();
 	}
-	else if (position == inventory_.calculate_size(inventory_.get_tail() - 1)) // If the index of the item to delete is the tail
+	else if (position == inventory_.get_size()-1) // If the index of the item to delete is the tail
 	{
 		inventory_.delete_tail();
 	}
@@ -333,7 +341,6 @@ void c_inventory_manager::edit_item()
 	std::string name;
 	std::cout << "Enter the new name of the item: ";
 	std::getline(std::cin, name);
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
 	// Edit the type of the item
 	int type_int;
@@ -362,6 +369,32 @@ void c_inventory_manager::edit_item()
 
 	// Set the updated item in the current node
 	current_node->set_item(item);
+}
+
+void c_inventory_manager::populate()
+{
+	// Add some items to the inventory
+	c_item item1("Sword", c_item::item_type::WEAPON, 100.0f, 5);
+	c_item item2("Shield", c_item::item_type::ARMOR, 50.0f, 10);
+	c_item item3("Potion", c_item::item_type::POTION, 10.0f, 20);
+	c_item item4("Apple", c_item::item_type::CONSUMABLE, 1.0f, 100);
+	c_item item5("Rope", c_item::item_type::UTILITY, 5.0f, 50);
+	c_item item6("Bow", c_item::item_type::WEAPON, 75.0f, 3);
+	c_item item7("Helmet", c_item::item_type::ARMOR, 25.0f, 15);
+	c_item item8("Health Potion", c_item::item_type::POTION, 15.0f, 25);
+	c_item item9("Bread", c_item::item_type::CONSUMABLE, 2.0f, 75);
+	c_item item10("Lantern", c_item::item_type::UTILITY, 10.0f, 30);
+
+	inventory_.insert_head(0,item1);
+	inventory_.insert_head(1,item2);
+	inventory_.insert_head(2,item3);
+	inventory_.insert_head(3,item4);
+	inventory_.insert_head(4,item5);
+	inventory_.insert_head(5,item6);
+	inventory_.insert_head(6,item7);
+	inventory_.insert_head(7,item8);
+	inventory_.insert_head(8,item9);
+	inventory_.insert_head(9,item10);
 }
 
 void c_inventory_manager::replace_backslashes(std::string& file_path)

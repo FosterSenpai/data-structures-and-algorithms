@@ -42,6 +42,7 @@ public:
 	 * @return a pointer to the tail node
 	 */
 	c_node* get_tail() const { return tail_node_; }
+	int get_size() const { return size_; }
 	/**
 	 * @brief Get the node at a given position
 	 * @param position - the position of the node to get

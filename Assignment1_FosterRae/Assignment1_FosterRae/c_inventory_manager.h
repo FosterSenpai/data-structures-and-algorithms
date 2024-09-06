@@ -34,6 +34,7 @@ public:
 	 * @note This is the main method that drives the program
 	 */
 	void main_menu();
+	c_doubly_linked_list get_inventory() { return inventory_; }
 
 private:
 	c_doubly_linked_list inventory_; // The inventory list
@@ -60,6 +61,10 @@ private:
 	 * @brief Menu to edit an item in the inventory
 	 */
 	void edit_item();
+	/**
+	 * @brief Populate the inventory with some items for testing
+	 */
+	void populate();
 
 	// *** File I/O ***
 	/**

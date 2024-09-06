@@ -44,21 +44,26 @@ bool c_doubly_linked_list::is_key_unique(int key) const
 
 c_node* c_doubly_linked_list::get_node_from_position(int position) const
 {
-	// Check if the position is valid
-	if (position < 0 || position >= size_)
-	{
-		std::cout << "Error: Position is out of bounds." << '\n';
-		return 0;
-	}
+    // Check if the position is valid
+    if (position < 0 || position >= size_)
+    {
+        std::cout << "Error: Position " << position << " is out of bounds." << '\n';
+        return nullptr;
+    }
 
-	// Traverse the list to find the node at the given position
-	c_node* current_node = head_node_; // current_node is the node to be returned, starting at the head
-	for (int i = 0; i < position; i++) // Loop until the given position
-	{
-		current_node = current_node->get_next(); // Move to the next node
-	}
+    // Traverse the list to find the node at the given position
+    c_node* current_node = head_node_; // current_node is the node to be returned, starting at the head
+    for (int i = 0; i < position; i++) // Loop until the given position
+    {
+        if (current_node == nullptr) // Additional check to ensure current_node is not null
+        {
+            std::cout << "Error: Unexpected null node at position " << i << '\n';
+            return nullptr;
+        }
+        current_node = current_node->get_next(); // Move to the next node
+    }
 
-	return current_node; // Return the node at the given position
+    return current_node; // Return the node at the given position
 }
 
 c_node* c_doubly_linked_list::get_node_from_key(int key) const
@@ -214,20 +219,35 @@ c_node* c_doubly_linked_list::get_highest_quantity() const
 
 int c_doubly_linked_list::calculate_size(c_node* head) const
 {
-	int count = 0;
-	// Traverse the list and count the number of nodes
-	for (c_node* current_node = head; current_node != nullptr; current_node = current_node->get_next())
-	{
-		count++;
-	}
+    if (head == nullptr)
+    {
+        std::cout << "Error: Head node is null." << '\n';
+        return 0;
+    }
 
-	// Check if the count matches the size of the list
-	if (count != size_) 
-	{
-		std::cout << "Error: List size does not match the number of nodes counted." << '\n';
-	}
+    int count = 0;
+    c_node* current_node = head;
 
-	return count;
+    // Traverse the list and count the number of nodes
+    while (current_node != nullptr)
+    {
+        if (current_node->get_next() == current_node)
+        {
+            std::cout << "Error: Circular reference detected at node with key " << current_node->get_key() << '\n';
+            return count;
+        }
+
+        count++;
+        current_node = current_node->get_next();
+    }
+
+    // Check if the count matches the size of the list
+    if (count != size_)
+    {
+        std::cout << "Error: List size does not match the number of nodes counted." << '\n';
+    }
+
+    return count;
 }
 
 bool c_doubly_linked_list::key_exists(const int key) const
@@ -441,42 +461,45 @@ void c_doubly_linked_list::delete_tail()
 	delete current_node; // Delete the current node
 	size_--;
 }
+
 void c_doubly_linked_list::delete_body(int position)
 {
-	// Check if the list is empty
-	if (head_node_ == nullptr)
-	{
-		std::cout << "Error: List is empty." << '\n';
-		return;
-	}
+    // Check if the position is valid
+    if (position <= 0 || position >= size_ - 1)
+    {
+        std::cerr << "Error: Invalid position for body deletion.\n";
+        return;
+    }
 
-	// Check if position is out of bounds
-	if (position < 0 || position >= size_)
-	{
-		std::cout << "Error: Position is out of bounds." << '\n';
-		return;
-	}
+    // Get the node to be deleted
+    c_node* node_to_delete = get_node_from_position(position);
+    if (node_to_delete == nullptr)
+    {
+        std::cerr << "Error: Node to delete not found.\n";
+        return;
+    }
 
-	c_node* current_node = get_node_from_position(position); // current_node is the node to be deleted
+    // Get the previous and next nodes
+    c_node* prev_node = node_to_delete->get_prev();
+    c_node* next_node = node_to_delete->get_next();
 
-	// If the position is at the head
-	if (current_node == head_node_)
-	{
-		delete_head(); // Delete the head node
-	}
-	else if (current_node == tail_node_) // If the position is at the tail
-	{
-		delete_tail(); // Delete the tail node
-	}
-	else // If the position is in the body of the list
-	{
-		current_node->get_prev()->set_next(current_node->get_next()); // Set the next pointer of the previous node to the next node, skipping the current node
-		current_node->get_next()->set_prev(current_node->get_prev()); // Set the previous pointer of the next node to the previous node, skipping the current node
-		// The current node is now disconnected from the list
+    // Update the previous node's next pointer
+    if (prev_node != nullptr)
+    {
+        prev_node->set_next(next_node);
+    }
 
-		delete current_node; // Delete the current node
-		size_--;
-	}
+    // Update the next node's previous pointer
+    if (next_node != nullptr)
+    {
+        next_node->set_prev(prev_node);
+    }
+
+    // Delete the node
+    delete node_to_delete;
+
+    // Decrement the size of the list
+    size_--;
 }
 
 void c_doubly_linked_list::quick_sort_ascending(c_node* low, c_node* high, int sort_choice)
