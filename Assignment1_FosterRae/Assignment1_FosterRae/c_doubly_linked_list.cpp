@@ -6,7 +6,7 @@
 /**
  * @brief Creates an empty doubly-linked list
  */
-c_doubly_linked_list::c_doubly_linked_list(): head_node_(nullptr), tail_node_(nullptr), size_(0) {} // Values set with member initializer list
+c_doubly_linked_list::c_doubly_linked_list() : head_node_(nullptr), tail_node_(nullptr), size_(0) {} // Values set with member initializer list
 
 c_doubly_linked_list::~c_doubly_linked_list()
 {
@@ -44,26 +44,26 @@ bool c_doubly_linked_list::is_key_unique(int key) const
 
 c_node* c_doubly_linked_list::get_node_from_position(int position) const
 {
-    // Check if the position is valid
-    if (position < 0 || position >= size_)
-    {
-        std::cout << "Error: Position " << position << " is out of bounds." << '\n';
-        return nullptr;
-    }
+	// Check if the position is valid
+	if (position < 0 || position >= size_)
+	{
+		std::cout << "Error: Position " << position << " is out of bounds." << '\n';
+		return nullptr;
+	}
 
-    // Traverse the list to find the node at the given position
-    c_node* current_node = head_node_; // current_node is the node to be returned, starting at the head
-    for (int i = 0; i < position; i++) // Loop until the given position
-    {
-        if (current_node == nullptr) // Additional check to ensure current_node is not null
-        {
-            std::cout << "Error: Unexpected null node at position " << i << '\n';
-            return nullptr;
-        }
-        current_node = current_node->get_next(); // Move to the next node
-    }
+	// Traverse the list to find the node at the given position
+	c_node* current_node = head_node_; // current_node is the node to be returned, starting at the head
+	for (int i = 0; i < position; i++) // Loop until the given position
+	{
+		if (current_node == nullptr) // Additional check to ensure current_node is not null
+		{
+			std::cout << "Error: Unexpected null node at position " << i << '\n';
+			return nullptr;
+		}
+		current_node = current_node->get_next(); // Move to the next node
+	}
 
-    return current_node; // Return the node at the given position
+	return current_node; // Return the node at the given position
 }
 
 c_node* c_doubly_linked_list::get_node_from_key(int key) const
@@ -219,35 +219,35 @@ c_node* c_doubly_linked_list::get_highest_quantity() const
 
 int c_doubly_linked_list::calculate_size(c_node* head) const
 {
-    if (head == nullptr)
-    {
-        std::cout << "Error: Head node is null." << '\n';
-        return 0;
-    }
+	if (head == nullptr)
+	{
+		std::cout << "Error: Head node is null." << '\n';
+		return 0;
+	}
 
-    int count = 0;
-    c_node* current_node = head;
+	int count = 0;
+	c_node* current_node = head;
 
-    // Traverse the list and count the number of nodes
-    while (current_node != nullptr)
-    {
-        if (current_node->get_next() == current_node)
-        {
-            std::cout << "Error: Circular reference detected at node with key " << current_node->get_key() << '\n';
-            return count;
-        }
+	// Traverse the list and count the number of nodes
+	while (current_node != nullptr)
+	{
+		if (current_node->get_next() == current_node)
+		{
+			std::cout << "Error: Circular reference detected at node with key " << current_node->get_key() << '\n';
+			return count;
+		}
 
-        count++;
-        current_node = current_node->get_next();
-    }
+		count++;
+		current_node = current_node->get_next();
+	}
 
-    // Check if the count matches the size of the list
-    if (count != size_)
-    {
-        std::cout << "Error: List size does not match the number of nodes counted." << '\n';
-    }
+	// Check if the count matches the size of the list
+	if (count != size_)
+	{
+		std::cout << "Error: List size does not match the number of nodes counted." << '\n';
+	}
 
-    return count;
+	return count;
 }
 
 bool c_doubly_linked_list::key_exists(const int key) const
@@ -276,10 +276,10 @@ void c_doubly_linked_list::swap(c_node* a, c_node* b)
 {
 	// nullptr check
 	if (a == nullptr || b == nullptr)
-    {
-        std::cout << "Error: One or both nodes are nullptr." << '\n';
-        return;
-    }
+	{
+		std::cout << "Error: One or both nodes are nullptr." << '\n';
+		return;
+	}
 
 	c_item temp_item = a->get_item(); // Store the item of node a
 	int temp_key = a->get_key();       // Store the key of node a
@@ -290,7 +290,6 @@ void c_doubly_linked_list::swap(c_node* a, c_node* b)
 	b->set_item(temp_item); // Set the item of node b to the stored item of node a
 	b->set_key(temp_key);   // Set the key of node b to the stored key of node a
 }
-
 
 // ** Insertion **
 void c_doubly_linked_list::insert_head(int key, const c_item& item)
@@ -464,186 +463,186 @@ void c_doubly_linked_list::delete_tail()
 
 void c_doubly_linked_list::delete_body(int position)
 {
-    // Check if the position is valid
-    if (position <= 0 || position >= size_ - 1)
-    {
-        std::cerr << "Error: Invalid position for body deletion.\n";
-        return;
-    }
+	// Check if the position is valid
+	if (position <= 0 || position >= size_ - 1)
+	{
+		std::cerr << "Error: Invalid position for body deletion.\n";
+		return;
+	}
 
-    // Get the node to be deleted
-    c_node* node_to_delete = get_node_from_position(position);
-    if (node_to_delete == nullptr)
-    {
-        std::cerr << "Error: Node to delete not found.\n";
-        return;
-    }
+	// Get the node to be deleted
+	c_node* node_to_delete = get_node_from_position(position);
+	if (node_to_delete == nullptr)
+	{
+		std::cerr << "Error: Node to delete not found.\n";
+		return;
+	}
 
-    // Get the previous and next nodes
-    c_node* prev_node = node_to_delete->get_prev();
-    c_node* next_node = node_to_delete->get_next();
+	// Get the previous and next nodes
+	c_node* prev_node = node_to_delete->get_prev();
+	c_node* next_node = node_to_delete->get_next();
 
-    // Update the previous node's next pointer
-    if (prev_node != nullptr)
-    {
-        prev_node->set_next(next_node);
-    }
+	// Update the previous node's next pointer
+	if (prev_node != nullptr)
+	{
+		prev_node->set_next(next_node);
+	}
 
-    // Update the next node's previous pointer
-    if (next_node != nullptr)
-    {
-        next_node->set_prev(prev_node);
-    }
+	// Update the next node's previous pointer
+	if (next_node != nullptr)
+	{
+		next_node->set_prev(prev_node);
+	}
 
-    // Delete the node
-    delete node_to_delete;
+	// Delete the node
+	delete node_to_delete;
 
-    // Decrement the size of the list
-    size_--;
+	// Decrement the size of the list
+	size_--;
 }
 
 void c_doubly_linked_list::quick_sort_ascending(c_node* low, c_node* high, int sort_choice)
 {
-    // Ensure the pointers are valid
-    if (low == nullptr || high == nullptr)
-    {
-        return;
+	// Ensure the pointers are valid
+	if (low == nullptr || high == nullptr)
+	{
+		return;
 	}
 
-    // Ensure there is more than one element to sort
-    if (low == high || low == high->get_next())
-    {
-        return;
+	// Ensure there is more than one element to sort
+	if (low == high || low == high->get_next())
+	{
+		return;
 	}
 
-    // Ensure that 'low' comes before 'high'
-    c_node* temp = low;
-    while (temp != nullptr && temp != high)
-    {
-        temp = temp->get_next();
-    }
-    if (temp != high)
-    {
-        return;
+	// Ensure that 'low' comes before 'high'
+	c_node* temp = low;
+	while (temp != nullptr && temp != high)
+	{
+		temp = temp->get_next();
 	}
-    // Partition the list and get the pivot node
-    c_node* pivot = partition_ascending(low, high, sort_choice);
+	if (temp != high)
+	{
+		return;
+	}
+	// Partition the list and get the pivot node
+	c_node* pivot = partition_ascending(low, high, sort_choice);
 
-    // Recursively sort the elements before and after the pivot
-    quick_sort_ascending(low, pivot->get_prev(), sort_choice);
-    quick_sort_ascending(pivot->get_next(), high, sort_choice);
+	// Recursively sort the elements before and after the pivot
+	quick_sort_ascending(low, pivot->get_prev(), sort_choice);
+	quick_sort_ascending(pivot->get_next(), high, sort_choice);
 }
 
 void c_doubly_linked_list::quick_sort_descending(c_node* low, c_node* high, int sort_choice)
 {
-    // Ensure the pointers are valid
-    if (low == nullptr || high == nullptr)
-    {
-        return;
+	// Ensure the pointers are valid
+	if (low == nullptr || high == nullptr)
+	{
+		return;
 	}
-    // Ensure there is more than one element to sort
-    if (low == high || low == high->get_next())
-    {
-    	return;
-    }
+	// Ensure there is more than one element to sort
+	if (low == high || low == high->get_next())
+	{
+		return;
+	}
 
-    // Ensure that 'low' comes before 'high'
-    c_node* temp = low;
-    while (temp != nullptr && temp != high)
-    {
-        temp = temp->get_next();
-    }
-    if (temp != high)
-    {
-	    return;
-    }
+	// Ensure that 'low' comes before 'high'
+	c_node* temp = low;
+	while (temp != nullptr && temp != high)
+	{
+		temp = temp->get_next();
+	}
+	if (temp != high)
+	{
+		return;
+	}
 
-    // Partition the list and get the pivot node
-    c_node* pivot_node = partition_descending(low, high, sort_choice);
+	// Partition the list and get the pivot node
+	c_node* pivot_node = partition_descending(low, high, sort_choice);
 
-    // Recursively sort the elements before and after the pivot
-    quick_sort_descending(low, pivot_node->get_prev(), sort_choice);  // Sort the left sublist
-    quick_sort_descending(pivot_node->get_next(), high, sort_choice); // Sort the right sublist
+	// Recursively sort the elements before and after the pivot
+	quick_sort_descending(low, pivot_node->get_prev(), sort_choice);  // Sort the left sublist
+	quick_sort_descending(pivot_node->get_next(), high, sort_choice); // Sort the right sublist
 }
 
 c_node* c_doubly_linked_list::partition_ascending(c_node* low, c_node* high, int sort_choice)
 {
-    c_item pivot = high->get_item();  // Select the pivot as the last element
-    c_node* i = low->get_prev();      // 'i' is the index of the node containing the last element less than or equal to the pivot
+	c_item pivot = high->get_item();  // Select the pivot as the last element
+	c_node* i = low->get_prev();      // 'i' is the index of the node containing the last element less than or equal to the pivot
 
-    // Traverse through the list from low to high and move elements less than the pivot to the left
-    for (c_node* j = low; j != high; j = j->get_next())
-    {
-        bool condition = false; // Condition to compare the elements
+	// Traverse through the list from low to high and move elements less than the pivot to the left
+	for (c_node* j = low; j != high; j = j->get_next())
+	{
+		bool condition = false; // Condition to compare the elements
 
-        switch (sort_choice)    // switch statement to compare the elements based on column being sorted, returns true if the condition is met
-        {
-            case 0: // Name
-                condition = j->get_item().compare_by_name(pivot);
-                break;
-            case 1: // Type
-                condition = j->get_item().compare_by_type(pivot);
-                break;
-            case 2: // Price
-                condition = j->get_item().compare_by_price(pivot);
-                break;
-            case 3: // Quantity
-                condition = j->get_item().compare_by_quantity(pivot);
-                break;
-            default:
-                condition = j->get_item() < pivot;
-                break;
-        }
+		switch (sort_choice)    // switch statement to compare the elements based on column being sorted, returns true if the condition is met
+		{
+		case 0: // Name
+			condition = j->get_item().compare_by_name(pivot);
+			break;
+		case 1: // Type
+			condition = j->get_item().compare_by_type(pivot);
+			break;
+		case 2: // Price
+			condition = j->get_item().compare_by_price(pivot);
+			break;
+		case 3: // Quantity
+			condition = j->get_item().compare_by_quantity(pivot);
+			break;
+		default:
+			condition = j->get_item() < pivot;
+			break;
+		}
 
-        // If the condition is true for the column being sorted, swap the elements
-        if (condition) 
-        {
-            i = (i == nullptr) ? low : i->get_next(); 
-            swap(i, j);
-        }
-    }
-    i = (i == nullptr) ? low : i->get_next(); // If 'i' is null, move to the next node
-    swap(i, high);                       // Swap the pivot with the element at index i
-    return i;                            // Return a pointer to the node containing the pivot item
+		// If the condition is true for the column being sorted, swap the elements
+		if (condition)
+		{
+			i = (i == nullptr) ? low : i->get_next();
+			swap(i, j);
+		}
+	}
+	i = (i == nullptr) ? low : i->get_next(); // If 'i' is null, move to the next node
+	swap(i, high);                       // Swap the pivot with the element at index i
+	return i;                            // Return a pointer to the node containing the pivot item
 }
 
 c_node* c_doubly_linked_list::partition_descending(c_node* low, c_node* high, int sort_choice)
 {
-    c_item pivot = high->get_item();  // Select the pivot as the last element
-    c_node* i = low->get_prev();      // 'i' is the index of the node containing the last element greater than or equal to the pivot
+	c_item pivot = high->get_item();  // Select the pivot as the last element
+	c_node* i = low->get_prev();      // 'i' is the index of the node containing the last element greater than or equal to the pivot
 
-    // Traverse through the list from low to high and move elements greater than the pivot to the left
-    for (c_node* j = low; j != high; j = j->get_next())
-    {
-        bool condition = false; // Condition to compare the elements
+	// Traverse through the list from low to high and move elements greater than the pivot to the left
+	for (c_node* j = low; j != high; j = j->get_next())
+	{
+		bool condition = false; // Condition to compare the elements
 
-        switch (sort_choice)    // switch statement to compare the elements based on column being sorted, returns true if the condition is met
-        {
-            case 0: // Name
-                condition = !j->get_item().compare_by_name(pivot);
-                break;
-            case 1: // Type
-                condition = !j->get_item().compare_by_type(pivot);
-                break;
-            case 2: // Price
-                condition = !j->get_item().compare_by_price(pivot);
-                break;
-            case 3: // Quantity
-                condition = !j->get_item().compare_by_quantity(pivot);
-                break;
-            default:
-                condition = j->get_item() > pivot;
-                break;
-        }
+		switch (sort_choice)    // switch statement to compare the elements based on column being sorted, returns true if the condition is met
+		{
+		case 0: // Name
+			condition = !j->get_item().compare_by_name(pivot);
+			break;
+		case 1: // Type
+			condition = !j->get_item().compare_by_type(pivot);
+			break;
+		case 2: // Price
+			condition = !j->get_item().compare_by_price(pivot);
+			break;
+		case 3: // Quantity
+			condition = !j->get_item().compare_by_quantity(pivot);
+			break;
+		default:
+			condition = j->get_item() > pivot;
+			break;
+		}
 
-        // If the condition is true for the column being sorted, swap the elements
-        if (condition) 
-        {
-            i = (i == nullptr) ? low : i->get_next(); 
-            swap(i, j);
-        }
-    }
-    i = (i == nullptr) ? low : i->get_next(); // if 'i' is null, move to the next node
-    swap(i, high);                       // Swap the pivot with the element at index i
-    return i;                                 // Return a pointer to the node containing the pivot item
+		// If the condition is true for the column being sorted, swap the elements
+		if (condition)
+		{
+			i = (i == nullptr) ? low : i->get_next();
+			swap(i, j);
+		}
+	}
+	i = (i == nullptr) ? low : i->get_next(); // if 'i' is null, move to the next node
+	swap(i, high);                       // Swap the pivot with the element at index i
+	return i;                                 // Return a pointer to the node containing the pivot item
 }

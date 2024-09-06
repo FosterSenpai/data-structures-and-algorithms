@@ -19,13 +19,13 @@ class c_item
 public:
 
 	// Enum for item types
-	enum class item_type 
+	enum class item_type
 	{
-	    ARMOR,
-	    CONSUMABLE,
-	    POTION,
-	    UTILITY,
-	    WEAPON,
+		ARMOR,
+		CONSUMABLE,
+		POTION,
+		UTILITY,
+		WEAPON,
 	};
 
 	// *** Constructors ***
@@ -95,7 +95,7 @@ public:
 	void set_quantity(const int quantity) { m_quantity_ = quantity; } // Mutator for quantity
 
 	// *** Comparison operators ***
-	/** 
+	/**
 	 * @brief Overloaded comparison operator for sorting items
 	 * @param other - the item to compare to
 	 * @return true if the item is less than the other item
@@ -143,18 +143,18 @@ public:
 	{
 		switch (type)
 		{
-			case item_type::ARMOR:
-				return "ARMOR";
-			case item_type::CONSUMABLE:
-				return "CONSUMABLE";
-			case item_type::POTION:
-				return "POTION";
-			case item_type::UTILITY:
-				return "UTILITY";
-			case item_type::WEAPON:
-				return "WEAPON";
-			default:
-				return "UNKNOWN";
+		case item_type::ARMOR:
+			return "ARMOR";
+		case item_type::CONSUMABLE:
+			return "CONSUMABLE";
+		case item_type::POTION:
+			return "POTION";
+		case item_type::UTILITY:
+			return "UTILITY";
+		case item_type::WEAPON:
+			return "WEAPON";
+		default:
+			return "UNKNOWN";
 		}
 	}
 
@@ -166,51 +166,48 @@ private:
 	item_type m_type_;   // Type of the item
 	float m_price_;      // Price of the item
 	int m_quantity_;     // Quantity of the item
-
 };
 
 inline bool c_item::operator<(const c_item& other) const
 {
-    constexpr float epsilon = 0.0001f; // Epsilon value for float comparison
+	constexpr float epsilon = 0.0001f; // Epsilon value for float comparison
 
-    if(m_name_ != other.m_name_) 
+	if (m_name_ != other.m_name_)
 	{
-        return m_name_ < other.m_name_; 												// Compare strings alphabetically
-    }
-	else if(m_type_ != other.m_type_) 
+		return m_name_ < other.m_name_; 												// Compare strings alphabetically
+	}
+	else if (m_type_ != other.m_type_)
 	{
-        return m_type_ < other.m_type_; 												// Compare enums numerically
-    }
-	else if(m_price_ - other.m_price_ < -epsilon) 
+		return m_type_ < other.m_type_; 												// Compare enums numerically
+	}
+	else if (m_price_ - other.m_price_ < -epsilon)
 	{
-        return m_price_ < other.m_price_; 												// Compare floats numerically, with epsilon
-    }
-	else 
+		return m_price_ < other.m_price_; 												// Compare floats numerically, with epsilon
+	}
+	else
 	{
-        return m_quantity_ < other.m_quantity_; 										// Compare integers numerically
-    }
+		return m_quantity_ < other.m_quantity_; 										// Compare integers numerically
+	}
 }
 
 inline bool c_item::operator>(const c_item& other) const
 {
-    constexpr float epsilon = 0.0001f; // Epsilon value for float comparison
+	constexpr float epsilon = 0.0001f; // Epsilon value for float comparison
 
-    if (m_name_ != other.m_name_)
+	if (m_name_ != other.m_name_)
 	{
-        return m_name_ > other.m_name_; 												// Compare strings alphabetically
-    }
-	else if (m_type_ != other.m_type_) 
+		return m_name_ > other.m_name_; 												// Compare strings alphabetically
+	}
+	else if (m_type_ != other.m_type_)
 	{
 		return m_type_ > other.m_type_; 												// Compare enums numerically
 	}
-	else if (m_price_ - other.m_price_ > epsilon) 
+	else if (m_price_ - other.m_price_ > epsilon)
 	{
-        return m_price_ > other.m_price_; 												// Compare floats numerically, with epsilon
-    }
-	else 
+		return m_price_ > other.m_price_; 												// Compare floats numerically, with epsilon
+	}
+	else
 	{
-        return m_quantity_ > other.m_quantity_; 										// Compare integers numerically
-    }
+		return m_quantity_ > other.m_quantity_; 										// Compare integers numerically
+	}
 }
-
-

@@ -189,7 +189,6 @@ public:
 	 */
 	c_node* partition_descending(c_node* low, c_node* high, int sort_choice);
 
-
 protected:
 
 	// *** Data Members ***

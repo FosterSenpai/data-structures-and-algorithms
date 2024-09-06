@@ -17,7 +17,6 @@ c_item c_node::get_item() const
 	return m_item_;
 }
 
-
 void c_node::set_key(const int key)
 {
 	m_key_ = key;
@@ -27,7 +26,6 @@ int c_node::get_key() const
 	return m_key_;
 }
 
-
 void c_node::set_next(c_node* next)
 {
 	m_next_ = next;
@@ -36,7 +34,6 @@ c_node* c_node::get_next() const
 {
 	return m_next_;
 }
-
 
 void c_node::set_prev(c_node* prev)
 {

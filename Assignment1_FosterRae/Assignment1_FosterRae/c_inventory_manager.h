@@ -20,7 +20,6 @@
 #include <sstream>
 #include <io.h>
 
-
 class c_inventory_manager
 {
 public:
@@ -101,5 +100,4 @@ private:
 	 * @return The unique key
 	 */
 	int generate_unique_key();
-
 };
