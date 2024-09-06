@@ -47,8 +47,8 @@ c_node* c_doubly_linked_list::get_node_from_position(int position) const
 	// Check if the position is valid
 	if (position < 0 || position >= size_)
 	{
-		std::cout << "Error: Position is out of bounds." << std::endl;
-		return nullptr;
+		std::cout << "Error: Position is out of bounds." << '\n';
+		return 0;
 	}
 
 	// Traverse the list to find the node at the given position
@@ -117,7 +117,7 @@ c_node* c_doubly_linked_list::get_lowest_price() const
 	// Check if the list is empty
 	if (head_node_ == nullptr)
 	{
-		std::cout << "Error: List is empty." << std::endl;
+		std::cout << "Error: List is empty." << '\n';
 		return nullptr;
 	}
 
@@ -142,7 +142,7 @@ c_node* c_doubly_linked_list::get_highest_price() const
 	// Check if the list is empty
 	if (head_node_ == nullptr)
 	{
-		std::cout << "Error: List is empty." << std::endl;
+		std::cout << "Error: List is empty." << '\n';
 		return nullptr;
 	}
 
@@ -167,7 +167,7 @@ c_node* c_doubly_linked_list::get_lowest_quantity() const
 	// Check if the list is empty
 	if (head_node_ == nullptr)
 	{
-		std::cout << "Error: List is empty." << std::endl;
+		std::cout << "Error: List is empty." << '\n';
 		return nullptr;
 	}
 
@@ -192,7 +192,7 @@ c_node* c_doubly_linked_list::get_highest_quantity() const
 	// Check if the list is empty
 	if (head_node_ == nullptr)
 	{
-		std::cout << "Error: List is empty." << std::endl;
+		std::cout << "Error: List is empty." << '\n';
 		return nullptr;
 	}
 
@@ -224,7 +224,7 @@ int c_doubly_linked_list::calculate_size(c_node* head) const
 	// Check if the count matches the size of the list
 	if (count != size_) 
 	{
-		std::cout << "Error: List size does not match the number of nodes counted." << std::endl;
+		std::cout << "Error: List size does not match the number of nodes counted." << '\n';
 	}
 
 	return count;
@@ -257,7 +257,7 @@ void c_doubly_linked_list::swap(c_node* a, c_node* b)
 	// nullptr check
 	if (a == nullptr || b == nullptr)
     {
-        std::cout << "Error: One or both nodes are nullptr." << std::endl;
+        std::cout << "Error: One or both nodes are nullptr." << '\n';
         return;
     }
 
@@ -278,7 +278,7 @@ void c_doubly_linked_list::insert_head(int key, const c_item& item)
 	// Check if the key is unique
 	if (!is_key_unique(key))
 	{
-		std::cout << "Error: Key is not unique." << std::endl;
+		std::cout << "Error: Key is not unique." << '\n';
 		return;
 	}
 
@@ -308,7 +308,7 @@ void c_doubly_linked_list::insert_tail(int key, const c_item& item)
 	// Check if the key is unique
 	if (!is_key_unique(key))
 	{
-		std::cout << "Error: Key is not unique." << std::endl;
+		std::cout << "Error: Key is not unique." << '\n';
 		return;
 	}
 
@@ -338,14 +338,14 @@ void c_doubly_linked_list::insert_body(int key, const c_item& item, int position
 	// Check if position is out of bounds
 	if (position < 0 || position > size_)
 	{
-		std::cout << "Error: Position is out of bounds." << std::endl;
+		std::cout << "Error: Position is out of bounds." << '\n';
 		return;
 	}
 
 	// Check if the key is unique
 	if (!is_key_unique(key))
 	{
-		std::cout << "Error: Key is not unique." << std::endl;
+		std::cout << "Error: Key is not unique." << '\n';
 		return;
 	}
 
@@ -386,7 +386,7 @@ void c_doubly_linked_list::delete_head()
 	// Check if the list is empty
 	if (head_node_ == nullptr)
 	{
-		std::cout << "Error: List is empty." << std::endl;
+		std::cout << "Error: List is empty." << '\n';
 		return;
 	}
 
@@ -411,7 +411,7 @@ void c_doubly_linked_list::delete_tail()
 	// Check if the list is empty
 	if (head_node_ == nullptr)
 	{
-		std::cout << "Error: List is empty." << std::endl;
+		std::cout << "Error: List is empty." << '\n';
 		return;
 	}
 
@@ -446,14 +446,14 @@ void c_doubly_linked_list::delete_body(int position)
 	// Check if the list is empty
 	if (head_node_ == nullptr)
 	{
-		std::cout << "Error: List is empty." << std::endl;
+		std::cout << "Error: List is empty." << '\n';
 		return;
 	}
 
 	// Check if position is out of bounds
 	if (position < 0 || position >= size_)
 	{
-		std::cout << "Error: Position is out of bounds." << std::endl;
+		std::cout << "Error: Position is out of bounds." << '\n';
 		return;
 	}
 
@@ -483,11 +483,15 @@ void c_doubly_linked_list::quick_sort_ascending(c_node* low, c_node* high, int s
 {
     // Ensure the pointers are valid
     if (low == nullptr || high == nullptr)
+    {
         return;
+	}
 
     // Ensure there is more than one element to sort
     if (low == high || low == high->get_next())
+    {
         return;
+	}
 
     // Ensure that 'low' comes before 'high'
     c_node* temp = low;
@@ -496,8 +500,9 @@ void c_doubly_linked_list::quick_sort_ascending(c_node* low, c_node* high, int s
         temp = temp->get_next();
     }
     if (temp != high)
+    {
         return;
-
+	}
     // Partition the list and get the pivot node
     c_node* pivot = partition_ascending(low, high, sort_choice);
 
@@ -510,11 +515,14 @@ void c_doubly_linked_list::quick_sort_descending(c_node* low, c_node* high, int 
 {
     // Ensure the pointers are valid
     if (low == nullptr || high == nullptr)
+    {
         return;
-
+	}
     // Ensure there is more than one element to sort
     if (low == high || low == high->get_next())
-        return;
+    {
+    	return;
+    }
 
     // Ensure that 'low' comes before 'high'
     c_node* temp = low;
@@ -523,7 +531,9 @@ void c_doubly_linked_list::quick_sort_descending(c_node* low, c_node* high, int 
         temp = temp->get_next();
     }
     if (temp != high)
-        return;
+    {
+	    return;
+    }
 
     // Partition the list and get the pivot node
     c_node* pivot_node = partition_descending(low, high, sort_choice);

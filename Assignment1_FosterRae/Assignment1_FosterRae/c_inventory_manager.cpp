@@ -1,15 +1,5 @@
 ﻿#include "c_inventory_manager.h"
 
-//TODO: add input validation to all user inputs, invalid inputs are breaking the program.
-/*  This fixed the first menu input validation, but the rest of the inputs are still broken.
-    while (!(std::cin >> choice) || choice < 1 || choice > 8)
-    {
-        std::cin.clear(); // clear the error flag
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // discard invalid input
-        std::cout << "Invalid input. Please enter a number between 1 and 8: ";
-    }
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
- */
 // *** Constructor ***
 c_inventory_manager::c_inventory_manager()= default;
 
@@ -18,20 +8,23 @@ c_inventory_manager::c_inventory_manager()= default;
 void c_inventory_manager::main_menu()
 {
 	int choice;
+	std::string load_file_path;
+
 	do
 	{
-		clear_screen();
-		std::cout << "Inventory Manager" << std::endl;
-		std::cout << "1. Display Inventory" << std::endl;
-		std::cout << "2. Sort Inventory" << std::endl;
-		std::cout << "3. Add Item" << std::endl;
-		std::cout << "4. Delete Item" << std::endl;
-		std::cout << "5. Edit Item" << std::endl;
-		std::cout << "6. Load Inventory from File" << std::endl;
-		std::cout << "7. Save Inventory to File" << std::endl;
-		std::cout << "8. Exit" << std::endl;
+		system("cls");
+		std::cout << "Inventory Manager - Foster Rae\n\n";
+		std::cout << "1. Display Inventory\n";
+		std::cout << "2. Sort Inventory\n";
+		std::cout << "3. Add Item\n";
+		std::cout << "4. Delete Item\n";
+		std::cout << "5. Edit Item\n";
+		std::cout << "6. Load Inventory from File (NOT WORKING)\n";
+		std::cout << "7. Save Inventory to File(NOT WORKING)\n";
+		std::cout << "8. Exit\n\n";
 		std::cout << "Enter your choice: ";
 
+		// Input validation
         while (!(std::cin >> choice) || choice < 1 || choice > 8)
         {
             std::cin.clear(); // clear the error flag
@@ -44,10 +37,17 @@ void c_inventory_manager::main_menu()
 		switch (choice)
 		{
 		case 1:
+			system("cls");
 			display_inventory();
+			// Wait for user input before returning to the main menu
+			std::cout << "\nPress Enter to continue...";
+		    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			break;
 		case 2:
 			sort_inventory();
+			system("cls");
+			std::cout << "Inventory sorted.\n";
+			display_inventory();
 			break;
 		case 3:
 			add_item();
@@ -59,15 +59,12 @@ void c_inventory_manager::main_menu()
 			edit_item();
 			break;
 		case 6:
-			load_inventory_from_file();
-			break;
+			std::cout << "Load Inventory from File function is yet to be implemented.\n";
+            break;
 		case 7:
-			save_inventory_to_file();
+			std::cout << "Save Inventory to File function is yet to be implemented.\n";
 			break;
 		case 8:
-			break;
-		default:
-			handle_invalid_input();
 			break;
 		}
 	} while (choice != 8);
@@ -76,12 +73,15 @@ void c_inventory_manager::main_menu()
 // ** Private Methods **
 void c_inventory_manager::display_inventory()
 {
-	clear_screen();
 
 	// Check if the inventory is empty
 	if (inventory_.is_empty())
 	{
-		std::cout << "Inventory is empty." << std::endl;
+		std::cout << "============================== Inventory ==============================\n";
+		std::cout << "Inventory is empty.\n";
+		std::cout << "=======================================================================\n";
+
+		// Wait for user input before returning to the main menu
 		return;
 	}
 
@@ -90,28 +90,35 @@ void c_inventory_manager::display_inventory()
 
 	// Loop through the list and print each item
 	int position = 0;
+	//decorate the output
+	std::cout << "============================== Inventory ==============================\n";
     while (current_node != nullptr) {
         c_item item = current_node->get_item();
         std::cout << "Position: " << position++ << ", "
     			  << "Name: " << item.get_name() << ", "
     	          << "Type: " << item.item_type_to_string(item.get_type()) << ", "
                   << "Price: " << item.get_price() << ", "
-                  << "Quantity: " << item.get_quantity() << std::endl;
+                  << "Quantity: " << item.get_quantity() << '\n';
         current_node = current_node->get_next();
     }
-
-	// Wait for user input before returning to the main menu
-	std::cout << "Press Enter to continue...";
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+	std::cout << "=======================================================================\n";
 }
 
 void c_inventory_manager::sort_inventory()
 {
-	clear_screen();
+	system("cls");
 
-	if (inventory_.is_empty()) {
-	    std::cout << "Inventory is empty." << std::endl;
-	    return;
+	// Check if the inventory is empty
+	if (inventory_.is_empty())
+	{
+		std::cout << "============================== Inventory ==============================\n";
+		std::cout << "Inventory is empty.\n";
+		std::cout << "=======================================================================\n";
+
+		// Wait for user input before returning to the main menu
+		std::cout << "\nPress Enter to continue...";
+	    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		return;
 	}
 
 	int sort_choice;
@@ -120,13 +127,13 @@ void c_inventory_manager::sort_inventory()
 	std::cout << "2. Type\n";
 	std::cout << "3. Price\n";
 	std::cout << "4. Quantity\n";
-	std::cout << "Enter your choice: ";
+	std::cout << "\nEnter your choice: ";
 	std::cin >> sort_choice;
 	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
 	// ask for ascending or descending
 	int order_choice;
-	std::cout << "Sort in:\n";
+	std::cout << "\n\nSort in:\n";
 	std::cout << "1. Ascending\n";
 	std::cout << "2. Descending\n";
 	std::cout << "Enter your choice: ";
@@ -174,7 +181,7 @@ void c_inventory_manager::sort_inventory()
 
 void c_inventory_manager::add_item()
 {
-	clear_screen();
+	system("cls");
 
 	std::string name;
 	std::cout << "Enter the name of the item: ";
@@ -205,11 +212,11 @@ void c_inventory_manager::add_item()
 	c_item item(name, type, price, quantity);
 
 	int position;
-	std::cout << "Enter the position to insert the item at: \n";
+	std::cout << "\nEnter the position to insert the item at: \n";
 	std::cout << "1. Head\n";
 	std::cout << "2. Tail\n";
 	std::cout << "3. Body\n";
-	std::cout << "Enter your choice: ";
+	std::cout << "\nEnter your choice: ";
 	std::cin >> position;
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
@@ -233,17 +240,37 @@ void c_inventory_manager::add_item()
 
 void c_inventory_manager::delete_item()
 {
-	clear_screen();
+	system("cls");
 
-	if (inventory_.is_empty()) {
-	    std::cout << "Inventory is empty." << std::endl;
-	    return;
+	// Check if the inventory is empty
+	if (inventory_.is_empty())
+	{
+		std::cout << "============================== Inventory ==============================\n";
+		std::cout << "Inventory is empty.\n";
+		std::cout << "=======================================================================\n";
+
+		// Wait for user input before returning to the main menu
+		std::cout << "\nPress Enter to continue...";
+	    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		return;
 	}
 
+	display_inventory();
+
 	int position;
-	std::cout << "Enter the position of the item to delete: ";
+	std::cout << "\nEnter the position of the item to delete: ";
 	std::cin >> position;
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+	// Confirm deletion
+	char choice;
+	std::cout << "\nAre you sure you want to delete the item at position " << position << "? (y/n): ";
+	std::cin >> choice;
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+	if (choice != 'y' && choice != 'Y')
+	{
+		return;
+	}
 
 	if (position == 0) 																// If the index of the item to delete is the head
 	{
@@ -261,19 +288,42 @@ void c_inventory_manager::delete_item()
 
 void c_inventory_manager::edit_item()
 {
-	clear_screen();
+	system("cls");
 
 	// Check if the inventory is empty
-	if (inventory_.is_empty()) {
-	    std::cout << "Inventory is empty." << std::endl;
-	    return;
+	if (inventory_.is_empty())
+	{
+		std::cout << "============================== Inventory ==============================\n";
+		std::cout << "Inventory is empty.\n";
+		std::cout << "=======================================================================\n";
+
+		// Wait for user input before returning to the main menu
+		std::cout << "\nPress Enter to continue...";
+	    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		return;
 	}
+
+	display_inventory();
 
 	// Get the position of the item to edit
 	int position;
-	std::cout << "Enter the position of the item to edit: ";
+	std::cout << "\nEnter the position of the item to edit: ";
 	std::cin >> position;
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+	// Confirm edit
+	char choice;
+	std::cout << "\nAre you sure you want to edit the item at position " << position << "? (y/n): ";
+	std::cin >> choice;
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+	if (choice != 'y' && choice != 'Y')
+	{
+		return;
+	}
+
+	system("cls");
+	display_inventory();
+	std::cout << "\nEditing position " << position << '\n';
 
 	// Get the item at the specified position
 	c_node* current_node = inventory_.get_node_from_position(position);
@@ -314,36 +364,96 @@ void c_inventory_manager::edit_item()
 	current_node->set_item(item);
 }
 
-void c_inventory_manager::load_inventory_from_file()
+void c_inventory_manager::replace_backslashes(std::string& file_path)
 {
-	// TODO: Implement load_inventory_from_file
+	for (char& ch : file_path) 
+	{
+		if (ch == '\\')
+		{
+			ch = '/';
+		}
+	}
 }
+
+void c_inventory_manager::load_inventory_from_file(const std::string& file_path)
+{
+	// Check if the file exists
+    std::ifstream file(file_path);
+    if (!file.is_open())
+    {
+        std::cerr << "Error: Could not open file " << file_path << '\n';
+        return;
+    }
+
+    std::string line;
+    // Skip the header line
+    std::getline(file, line);
+	// Read each line of the file
+    while (std::getline(file, line))
+    {
+        std::istringstream iss(line);
+        std::string name, type_str, price_str, quantity_str;
+
+        if (std::getline(iss, name, '/') &&
+            std::getline(iss, type_str, '/') &&
+            std::getline(iss, price_str, '/') &&
+            std::getline(iss, quantity_str, '/'))
+        {
+            // Remove leading and trailing whitespaces
+            name = trim(name);
+            type_str = trim(type_str);
+            price_str = trim(price_str);
+            quantity_str = trim(quantity_str);
+
+            // Convert strings to appropriate types
+            c_item::item_type type = string_to_item_type(type_str);
+            float price = std::stof(price_str);
+            int quantity = std::stoi(quantity_str);
+
+            // Create c_item object
+            c_item item(name, type, price, quantity);
+
+            // Insert item into inventory
+            int key = generate_unique_key();
+            inventory_.insert_tail(key, item);
+        }
+    }
+
+    file.close();
+}
+
 
 void c_inventory_manager::save_inventory_to_file()
 {
-	// TODO: Implement save_inventory_to_file
+	// To be implemented
 }
 
-void c_inventory_manager::handle_invalid_input()
+c_item::item_type c_inventory_manager::string_to_item_type(const std::string& type)
 {
-	// TODO: Implement handle_invalid_input
+	if (type == "ARMOR") return c_item::item_type::ARMOR;
+    if (type == "CONSUMABLE") return c_item::item_type::CONSUMABLE;
+    if (type == "POTION") return c_item::item_type::POTION;
+    if (type == "UTILITY") return c_item::item_type::UTILITY;
+    if (type == "WEAPON") return c_item::item_type::WEAPON;
+    throw std::invalid_argument("Invalid item type: " + type);
 }
 
-void c_inventory_manager::clear_screen()
+std::string c_inventory_manager::trim(const std::string& str)
 {
-    HANDLE h_console = GetStdHandle(STD_OUTPUT_HANDLE);
-    if (h_console == INVALID_HANDLE_VALUE) return;
+	// Trim leading spaces
+	size_t first = str.find_first_not_of(' ');
+    if (first == std::string::npos)
+    {
+        return str;
+	}
 
-    CONSOLE_SCREEN_BUFFER_INFO csbi;
-    DWORD count;
-    DWORD cell_count;
-    COORD homeCoords = { 0, 0 };
+	// Trim trailing spaces
+    size_t last = str.find_last_not_of(' ');
+    return str.substr(first, last - first + 1);
+}
 
-    if (!GetConsoleScreenBufferInfo(h_console, &csbi)) return;
-    cell_count = csbi.dwSize.X * csbi.dwSize.Y;
-
-    if (!FillConsoleOutputCharacter(h_console, (TCHAR)' ', cell_count, homeCoords, &count)) return;
-    if (!FillConsoleOutputAttribute(h_console, csbi.wAttributes, cell_count, homeCoords, &count)) return;
-
-    SetConsoleCursorPosition(h_console, homeCoords);
+int c_inventory_manager::generate_unique_key()
+{
+	static int key = 0;
+    return ++key;
 }

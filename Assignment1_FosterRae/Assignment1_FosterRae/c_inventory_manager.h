@@ -16,6 +16,10 @@
 // include windows without max and min macros
 #define NOMINMAX
 #include <Windows.h>
+#include <fstream>
+#include <sstream>
+#include <io.h>
+
 
 class c_inventory_manager
 {
@@ -56,14 +60,41 @@ private:
 	 * @brief Menu to edit an item in the inventory
 	 */
 	void edit_item();
-    void load_inventory_from_file();
-    void save_inventory_to_file();
-    void handle_invalid_input();
+
+	// *** File I/O ***
 	/**
-	 * @brief Clear the console screen
-	 *
-	 * @note This is a Windows-specific method
+	 * @brief Replace all backslashes in a string with forward slashes
 	 */
-	void clear_screen();
+	void replace_backslashes(std::string& file_path);
+	/**
+	 * @brief Load the inventory from a file
+	 * @param file_path The path to the file to load
+	 *
+	 *  @note Not currently working
+	 */
+	void load_inventory_from_file(const std::string& file_path);
+	/**
+	 * @brief Save the inventory to a file
+	 *
+	 *  @note Not currently implemented
+	 */
+	void save_inventory_to_file();
+	/**
+	 * @brief Get the item type from a string
+	 * @param type The string to convert
+	 * @return The item type as an enum
+	 */
+	c_item::item_type string_to_item_type(const std::string& type);
+	/**
+	 * @brief Trim whitespace from a string
+	 * @param str The string to trim
+	 * @return The trimmed string
+	 */
+	std::string trim(const std::string& str);
+	/**
+	 * @brief Generate a unique key for an item
+	 * @return The unique key
+	 */
+	int generate_unique_key();
 
 };
